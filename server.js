@@ -8,6 +8,7 @@ const cors = require('cors');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+const path = require('path')
 const _DEV_MODE = false;
 
 const app = express();
