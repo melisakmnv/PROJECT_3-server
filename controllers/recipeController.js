@@ -16,7 +16,7 @@ exports.getAllRecipes = async (req, res, next) => {
     }
 
     catch(error) {
-        next()
+        next(error)
     }
 
 }
@@ -38,7 +38,7 @@ exports.getRecipe = async (req, res, next) => {
     }
 
     catch (error) {
-        next()
+        next(error)
     }
 }
 
@@ -62,7 +62,7 @@ exports.addRecipe = async (req, res, next) => {
     }
     
     catch (error){
-        next()
+        next(error)
     }
 
 }
@@ -94,7 +94,7 @@ exports.updateRecipe = async (req, res, next) => {
     }
 
     catch (error) {
-        next()
+        next(error)
     }
 }
 
@@ -113,7 +113,7 @@ module.exports.deleteRecipe = async (req,res) => {
     }
 
     catch(error) {
-        next()
+        next(error)
     }
 };
 
@@ -154,8 +154,7 @@ exports.likeRecipe = async (req, res, next) => {
         }
       );
     } catch (error) {
-      console.log(error);
-      res.status(500).send(error);
+      next(error)
     }
   };
   
@@ -191,7 +190,6 @@ exports.likeRecipe = async (req, res, next) => {
         }
       );
     } catch (error) {
-      console.log(error);
-      res.status(500).send(error);
+      next(error)
     }
   };

@@ -17,7 +17,7 @@ exports.getAllUsers = async (req, res, next) => {
     }
 
     catch (error) {
-        next()
+        next(error)
     }
 
 };
@@ -39,7 +39,7 @@ exports.getUserInfo = async (req, res, next) => {
     }
 
     catch(error) {
-        next()
+        next(error)
     } 
 
 };
@@ -71,7 +71,7 @@ exports.updateUserInfo = async (req, res, next) => {
     }
 
     catch(error){
-        next()
+        next(error)
     }
 
 }
@@ -92,7 +92,7 @@ exports.deleteUser = async (req, res, next) => {
     }
 
     catch(error) {
-        next()
+        next(error)
     }
 
 }
@@ -132,7 +132,7 @@ exports.followingUser = async (req, res, next) => {
     }
 
     catch (error) {
-        next()
+        next(error)
     }
 }
 
@@ -170,7 +170,7 @@ exports.unFollowingUser = async (req, res, next) => {
     }
 
     catch (error) {
-        next()
+        next(error)
     }
 }
 

@@ -15,7 +15,7 @@ exports.getAllPlants = async (req, res, next) => {
   } 
   
   catch (error) {
-    next();
+    next(error);
   }
 
 };
@@ -36,7 +36,7 @@ exports.getPlant = async (req, res, next) => {
   } 
   
   catch (error) {
-    next(); // this handle err message is more explicite // when we put error in next => not
+    next(error); // this handle err message is more explicite // when we put error in next => not
   }
 
 };
@@ -61,7 +61,7 @@ exports.addPlant = async(req, res, next) => {
   }
 
   catch(error) {
-    next()
+    next(error)
   }
   
 };
@@ -94,7 +94,7 @@ exports.updatePlant = async (req, res, next) => {
 
   }
    catch (error) {
-    next();
+    next(error);
   }
 
 };
@@ -158,8 +158,7 @@ exports.likePlant = async (req, res, next) => {
       }
     );
   } catch (error) {
-    console.log(error);
-    res.status(500).send(error);
+    next(error)
   }
 };
 
@@ -195,7 +194,6 @@ exports.unlikePlant = async (req, res, next) => {
       }
     );
   } catch (error) {
-    console.log(error);
-    res.status(500).send(error);
+    next(error)
   }
 };

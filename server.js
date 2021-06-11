@@ -8,6 +8,7 @@ const cors = require('cors');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+const _DEV_MODE = false;
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static(path.join(__dirname, "public/build")));
+
 //Session //
 
 app.use(
@@ -32,6 +35,23 @@ app.use(
     secret: process.env.SESSION_SECRET,
   })
 );
+
+if (_DEV_MODE) {
+  const User = require("./models/User");
+
+  app.use((req, res, next) => {
+    User.findOne({})
+      .then((userDocument) => {
+        req.session.currentUser = userDocument._id;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        next();
+      });
+  });
+}
 
 // ROUTES //
 const userRoutes = require('./routes/user.routes');
@@ -49,33 +69,26 @@ app.use('/api/comment', commentRoutes);
 
 // When route is incorrect, this error will run
 
-// app.all('*', (req, res, next) => {
-//   const error = new Error ('cannot find this routes'); // need to be more explicite
-//   error.status = "fail";
-//   error.statusCode = 404;
-//   res.json({
-//     message : 'cannot find this route',
-//     error: error
-//   })
 
-//   next(error)
-// })
 
-app.use((req, res, next) => {
-  res.status(404).json({
-    status: 'fail',
-    message: `The ressource requesting doesn't exist. Method: ${req.method} path: ${req.originalUrl}`,
-  });
+app.use("/api/*", (req, res, next) => {  
+  const error = new Error("Ressource not found.");
+  error.status = 404;
+  next(error);
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use("*", (req, res, next) => {
+    // If no routes match, send them the React HTML.
+    res.sendFile(path.join(__dirname, "public/build/index.html"));
+  });
+}
 
 // HANDLE ERRORS //
 app.use((error, req, res, next) => {
-  console.log('error from server >>>>>    ' + error);
+  console.log(error);
   error.status = error.status || 500;
-  res.json({
-    message: 'fail',
-    error: error,
-  });
+  res.json(error);
 });
 
 // SERVER //
