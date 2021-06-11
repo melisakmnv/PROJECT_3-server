@@ -4,19 +4,19 @@ const plantSchema = new mongoose.Schema(
   {
     plantName: {
       type: String,
-      required: [true, 'Please provide a plant name'],
+      // required: [true, 'Please provide a plant name'],
     },
     nameLatin: {
       type: String,
-      required: [true, 'Please provide a plant name in Latin'],
+      // required: [true, 'Please provide a plant name in Latin'],
     },
     species: {
       type: String,
-      required: [true, 'Please provide a plant species'],
+      // required: [true, 'Please provide a plant species'],
     },
     family: {
       type: String,
-      required: [true, 'Please provide a plant family'],
+      // required: [true, 'Please provide a plant family'],
     },
     image: {
       type: String,
