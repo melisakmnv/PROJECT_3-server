@@ -37,7 +37,7 @@ app.use(
 );
 
 if (_DEV_MODE) {
-  const User = require("./models/User");
+  const UserModel = require("./models/user.model");
 
   app.use((req, res, next) => {
     User.findOne({})
