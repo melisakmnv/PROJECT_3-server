@@ -119,8 +119,6 @@ exports.deletePlant = async (req, res, next) => {
 
 };
 
-
-
 // LIKE LOGIC GOES HERE // 
 
 
